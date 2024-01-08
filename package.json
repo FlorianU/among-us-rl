@@ -2,13 +2,15 @@
   "private": true,
   "scripts": {
     "build": "next build",
-    "dev": "next dev",
+    "dev": "next dev -p 3400 & local-ssl-proxy --key localhost-key.pem --cert localhost.pem --source 443 --target 3400",
     "start": "next start"
   },
   "dependencies": {
     "next": "latest",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-qr-code": "^2.0.12",
+    "react-qr-reader": "^3.0.0-beta-1"
   },
   "engines": {
     "node": ">=18"
