@@ -5,18 +5,16 @@ import scanStyles from "./scan.module.css";
 import players from "./players.json"
 import { useRouter } from "next/navigation";
 
-function Scan() {
+function ScanAssignment() {
   const [data, setData] = useState("No result");
   const router = useRouter();
 
   useEffect(() => {
-    
-    console.warn(players)
     if(data) {
       const strings = data.split(':');
-      if (strings[0] === 'player') {
-        console.warn(players[strings[1]]);
-        router.push({pathname: '/player', query: {id: strings[1]}});
+      if (strings[0] === 'assignment') {
+        
+        router.push({pathname: '/player-control', query: {id: strings[1]}});
       }
     }
   }, [data]);

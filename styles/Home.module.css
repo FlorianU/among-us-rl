@@ -1,11 +1,19 @@
 .container {
-  min-height: 100vh;
-  min-width: 100vw;
+  height: 100vh;
+  width: 100vw;
   padding: 0 0.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.controlbar {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 3rem 0;
 }
 
 .title a {
@@ -84,6 +92,27 @@
 .logo {
   height: 1em;
 }
+
+.button {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  background-color: white;
+  border: 1px solid #0070f3;
+  border-radius: 10px;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.button:hover,
+.button:focus,
+.button:active {
+  color: #0070f3;
+  border-color: #0070f3;
+}
+
+
 
 @media (max-width: 600px) {
   .grid {
