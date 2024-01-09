@@ -4,13 +4,14 @@ import { useRouter } from "next/router";
 import players from "./players.json";
 import assignments from "./assignments.json";
 import { useState, useEffect } from "react";
+import { AmongUsProvider, useAmongUsContext } from "../context/main-data";
 
 export default function Player() {
   const router = useRouter();
   const [killTimer, setKillTimer] = useState(0);
   const [currentAssignment, setCurrentAssignment] = useState(0);
-  const [assignmentCounter, setAssignmentCounter] = useState(0);
   const [isKilling, setIsKilling] = useState(false);
+  const { assignmentCounter, setAssignmentCounter } = useAmongUsContext();
   const player = players[router.query.id];
 
   useEffect(() => {
@@ -37,31 +38,39 @@ export default function Player() {
     }
   };
 
+  const onReportBodyButton = () => {
+    setAssignmentCounter(assignmentCounter + 1);
+  };
+
   return (
-    <div className={styles.container}>
-      <p>SPIELE</p>
-      <br />
-      <p>erledigte Aufgaben: {assignmentCounter}</p>
-      <h2>nächste Aufgabe</h2>
-      <p>{assignments[player?.assignmentOrder[assignmentCounter]]?.location}</p>
-      <p>
-        {assignments[player?.assignmentOrder[assignmentCounter]]?.description}
-      </p>
-      <a href="/scan" className={styles.card}>
-        <h2>Scanne aufgabe</h2>
-        <p>Scanne QR-Code am Ort der Aufgabe</p>
-      </a>
-      <div className={styles.controlbar}>
-        <button
-          onClick={onKillButton}
-          className={styles.button}
-          disabled={killTimer > 0}
-        >
-          Kill {killTimer}
-        </button>
-        <button className={styles.button}>Report Body</button>
+      <div className={styles.container}>
+        <p>SPIELE</p>
+        <br />
+        <p>erledigte Aufgaben: {assignmentCounter}</p>
+        <h2>nächste Aufgabe</h2>
+        <p>
+          {assignments[player?.assignmentOrder[assignmentCounter]]?.location}
+        </p>
+        <p>
+          {assignments[player?.assignmentOrder[assignmentCounter]]?.description}
+        </p>
+        <a href="/scan" className={styles.card}>
+          <h2>Scanne aufgabe</h2>
+          <p>Scanne QR-Code am Ort der Aufgabe</p>
+        </a>
+        <div className={styles.controlbar}>
+          <button
+            onClick={onKillButton}
+            className={styles.button}
+            disabled={killTimer > 0}
+          >
+            Kill {killTimer}
+          </button>
+          <button onClick={onReportBodyButton} className={styles.button}>
+            Report Body
+          </button>
+        </div>
+        {isKilling ? <div className={styles.killingOverlay}></div> : null}
       </div>
-      {isKilling ? <div className={styles.killingOverlay}></div> : null}
-    </div>
   );
 }
