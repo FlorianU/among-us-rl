@@ -1,10 +1,9 @@
-import Head from "next/head";
-import styles from "../styles/Home.module.css";
 import { useRouter } from "next/router";
-import players from "./players.json";
-import assignments from "./assignments.json";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAmongUsContext } from "../context/main-data";
+import styles from "../styles/Home.module.css";
+import assignments from "./assignments.json";
+import players from "./players.json";
 
 export default function Player() {
   const router = useRouter();
@@ -40,42 +39,45 @@ export default function Player() {
   };
 
   const onReportBodyButton = () => {
-    setAssignmentCounter(assignmentCounter + 1);
+    // report body
   };
 
   const onScanAssignmentButton = () => {
-    router.push({pathname: 'scan-assignment'});
+    router.push({ pathname: 'scan-assignment' });
   };
 
   return (
-      <div className={styles.container}>
-        <p>SPIELE {currentUser?.id}</p>
-        <br />
-        <p>erledigte Aufgaben: {assignmentCounter}</p>
-        <h2>nächste Aufgabe</h2>
-        <p>
-          {assignments[player?.assignmentOrder[assignmentCounter]]?.location}
-        </p>
-        <p>
-          {assignments[player?.assignmentOrder[assignmentCounter]]?.description}
-        </p>
-        <button onClick={onScanAssignmentButton} className={styles.card}>
-          <h2>Scanne nächste Aufgabe</h2>
-          <p>Jede Aufgabe hat einen QR-Code</p>
+    <div className={styles.container}>
+      <p>erledigte Aufgaben: {assignmentCounter}</p>
+      <h2>nächste Aufgabe</h2>
+      <p>
+        Ort:       <br />
+        {assignments[player?.assignmentOrder[assignmentCounter]]?.location}
+      </p>
+      <p>
+        Beschreibung:       <br />
+        {assignments[player?.assignmentOrder[assignmentCounter]]?.description}
+      </p>
+      <br />
+      <button onClick={onScanAssignmentButton} className={styles.button}>
+        <h3>Scanne nächste Aufgabe</h3>
+        <p>Jede Aufgabe hat einen QR-Code</p>
+      </button>
+      <div className={styles.controlbar}>
+        <button
+          onClick={onKillButton}
+          className={styles.button}
+          disabled={killTimer > 0}
+          style={{ width: '30%' }}
+        >
+          Kill {killTimer}
         </button>
-        <div className={styles.controlbar}>
-          <button
-            onClick={onKillButton}
-            className={styles.button}
-            disabled={killTimer > 0}
-          >
-            Kill {killTimer}
-          </button>
-          <button onClick={onReportBodyButton} className={styles.button}>
-            Report Body
-          </button>
-        </div>
-        {isKilling ? <div className={styles.killingOverlay}></div> : null}
+        <button onClick={onReportBodyButton} className={styles.button}
+          style={{ width: '30%' }}>
+          Report Body
+        </button>
       </div>
+      {isKilling ? <div className={styles.killingOverlay}></div> : null}
+    </div>
   );
 }
