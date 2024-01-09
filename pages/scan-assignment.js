@@ -4,17 +4,24 @@ import styles from "../styles/Home.module.css";
 import scanStyles from "./scan.module.css";
 import players from "./players.json"
 import { useRouter } from "next/navigation";
+import { useAmongUsContext } from "../context/main-data";
 
 function ScanAssignment() {
   const [data, setData] = useState("No result");
+  const { assignmentCounter, setAssignmentCounter, currentUser, setCurrentUser } = useAmongUsContext();
   const router = useRouter();
 
   useEffect(() => {
+    console.warn(currentUser);
     if(data) {
       const strings = data.split(':');
       if (strings[0] === 'assignment') {
-        
-        router.push({pathname: '/player-control', query: {id: strings[1]}});
+        console.warn(currentUser);
+        console.warn(currentUser);
+        if(currentUser?.assignmentOrder[assignmentCounter] === strings[1]) {
+          setAssignmentCounter(assignmentCounter + 1);
+          router.push({pathname: '/player-control', query: {id: strings[1]}});
+        }
       }
     }
   }, [data]);
@@ -43,4 +50,4 @@ function ScanAssignment() {
   );
 }
 
-export default Scan;
+export default ScanAssignment;

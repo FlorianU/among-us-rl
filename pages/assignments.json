@@ -3,5 +3,15 @@
             "id": 0,
             "location": "Brunnen draussen",
             "description": "Bade darin und scanne anschliessend den QR Code in der app"
+        },
+        {
+            "id": 1,
+            "location": "Gruft",
+            "description": "Blabla und scanne anschliessend den QR Code in der app"
+        },
+        {
+            "id": 2,
+            "location": "Aufenthaltsraum im obersten Stock",
+            "description": "Blabla und scanne anschliessend den QR Code in der app"
         }
     ]

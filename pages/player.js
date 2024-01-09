@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react'
 
 export default function Player(props) {
   const router = useRouter()
-  const [timer, setTimer] = useState(20);
+  const [timer, setTimer] = useState(10);
 
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export default function Player(props) {
     <div className={styles.container}>
       <p>Sichtbar: {timer}</p>
       <br/>    
-      <p>{players[router.query.id]?.id}</p>    
+      <p>ID: {players[router.query.id]?.id}</p>    
       <p>{players[router.query.id]?.isImpostor ? 'IMPOSTOR' : 'UNSCHULDIG'}</p>    
     </div>
   )

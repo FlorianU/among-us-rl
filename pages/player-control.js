@@ -4,17 +4,18 @@ import { useRouter } from "next/router";
 import players from "./players.json";
 import assignments from "./assignments.json";
 import { useState, useEffect } from "react";
-import { AmongUsProvider, useAmongUsContext } from "../context/main-data";
+import { useAmongUsContext } from "../context/main-data";
 
 export default function Player() {
   const router = useRouter();
   const [killTimer, setKillTimer] = useState(0);
   const [currentAssignment, setCurrentAssignment] = useState(0);
   const [isKilling, setIsKilling] = useState(false);
-  const { assignmentCounter, setAssignmentCounter } = useAmongUsContext();
+  const { assignmentCounter, setAssignmentCounter, currentUser, setCurrentUser } = useAmongUsContext();
   const player = players[router.query.id];
 
   useEffect(() => {
+    console.warn(currentUser);
     if (player?.isImpostor && killTimer > 0) {
       var updateTime = setInterval(() => {
         setKillTimer(killTimer - 1);
@@ -42,9 +43,13 @@ export default function Player() {
     setAssignmentCounter(assignmentCounter + 1);
   };
 
+  const onScanAssignmentButton = () => {
+    router.push({pathname: 'scan-assignment'});
+  };
+
   return (
       <div className={styles.container}>
-        <p>SPIELE</p>
+        <p>SPIELE {currentUser?.id}</p>
         <br />
         <p>erledigte Aufgaben: {assignmentCounter}</p>
         <h2>nächste Aufgabe</h2>
@@ -54,10 +59,10 @@ export default function Player() {
         <p>
           {assignments[player?.assignmentOrder[assignmentCounter]]?.description}
         </p>
-        <a href="/scan" className={styles.card}>
-          <h2>Scanne aufgabe</h2>
-          <p>Scanne QR-Code am Ort der Aufgabe</p>
-        </a>
+        <button onClick={onScanAssignmentButton} className={styles.card}>
+          <h2>Scanne nächste Aufgabe</h2>
+          <p>Jede Aufgabe hat einen QR-Code</p>
+        </button>
         <div className={styles.controlbar}>
           <button
             onClick={onKillButton}

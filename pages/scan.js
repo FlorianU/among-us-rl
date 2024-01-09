@@ -4,9 +4,11 @@ import styles from "../styles/Home.module.css";
 import scanStyles from "./scan.module.css";
 import players from "./players.json"
 import { useRouter } from "next/navigation";
+import { useAmongUsContext } from "../context/main-data";
 
 function Scan() {
   const [data, setData] = useState("No result");
+  const { assignmentCounter, setAssignmentCounter, currentUser, setCurrentUser } = useAmongUsContext();
   const router = useRouter();
 
   useEffect(() => {
@@ -15,7 +17,8 @@ function Scan() {
     if(data) {
       const strings = data.split(':');
       if (strings[0] === 'player') {
-        console.warn(players[strings[1]]);
+        setCurrentUser(players[strings[1]]);
+        console.warn(currentUser);
         router.push({pathname: '/player', query: {id: strings[1]}});
       }
     }
