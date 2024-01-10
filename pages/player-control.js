@@ -87,10 +87,14 @@ export default function Player() {
         >
           Kill {killTimer}
         </button>
-        <button onClick={onReportBodyButton} className={styles.button}
+        {/* <button onClick={onReportBodyButton} className={styles.button}
           style={{ width: '30%' }}>
           Report Body
-        </button>
+        </button> */}
+        <a href="https://wa.link/mpv2sy" target="_blank" className={styles.button}
+          style={{ width: '30%' }}>
+          Report Body
+        </a>
       </div>
       {isKilling ? <div className={styles.killingOverlay}></div> : null}
     </div>
