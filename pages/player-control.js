@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { useAmongUsContext } from "../context/main-data";
 import styles from "../styles/Home.module.css";
 import assignments from "./assignments.json";
-import players from "./players.json";
 
 export default function Player() {
   const router = useRouter();
@@ -11,11 +10,11 @@ export default function Player() {
   const [currentAssignment, setCurrentAssignment] = useState(0);
   const [isKilling, setIsKilling] = useState(false);
   const { assignmentCounter, setAssignmentCounter, currentUser, setCurrentUser } = useAmongUsContext();
-  const player = players[router.query.id];
 
   useEffect(() => {
-    console.warn(currentUser);
-    if (player?.isImpostor && killTimer > 0) {
+    console.warn(currentUser?.assignmentOrder.length);
+    console.warn(assignmentCounter);
+    if (currentUser?.isImpostor && killTimer > 0) {
       var updateTime = setInterval(() => {
         setKillTimer(killTimer - 1);
       }, 1000);
@@ -28,7 +27,7 @@ export default function Player() {
   }, [killTimer]);
 
   const onKillButton = () => {
-    if (player?.isImpostor && killTimer === 0) {
+    if (currentUser?.isImpostor && killTimer === 0) {
       // enable killing Player
       setIsKilling(true);
 
@@ -42,24 +41,40 @@ export default function Player() {
     // report body
   };
 
+  const onResetButton = () => {
+    router.push({ pathname: '/' });
+  };
+
   const onScanAssignmentButton = () => {
     router.push({ pathname: 'scan-assignment' });
   };
 
   return (
     <div className={styles.container}>
+      <div
+          className={styles.button} style={{padding: 5, marginBottom: 20}} onClick={() => { if (window.confirm('Bist du sicher, dass du alles zurück setzen willst?')) onResetButton() } }>App zurücksetzen</div>
+
       <p>erledigte Aufgaben: {assignmentCounter}</p>
+      {currentUser?.assignmentOrder?.length === assignmentCounter ? 
+      <div>
+        <h2>Alle Aufgaben abgeschlossen</h2>
+        <p>lasse dich jetzt nicht umbringen!</p>
+      </div>
+      :
+      <>
       <h2>nächste Aufgabe</h2>
       <p>
         Ort:       <br />
-        {assignments[player?.assignmentOrder[assignmentCounter]]?.location}
+        {assignments[currentUser?.assignmentOrder[assignmentCounter]]?.location}
       </p>
       <p>
         Beschreibung:       <br />
-        {assignments[player?.assignmentOrder[assignmentCounter]]?.description}
+        {assignments[currentUser?.assignmentOrder[assignmentCounter]]?.description}
       </p>
+      </>
+      }
       <br />
-      <button onClick={onScanAssignmentButton} className={styles.button}>
+      <button onClick={onScanAssignmentButton} disabled={currentUser?.assignmentOrder?.length === assignmentCounter} className={styles.button}>
         <h3>Scanne nächste Aufgabe</h3>
         <p>Jede Aufgabe hat einen QR-Code</p>
       </button>
