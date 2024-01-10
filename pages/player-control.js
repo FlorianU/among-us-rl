@@ -91,6 +91,7 @@ export default function Player() {
           style={{ width: '30%' }}>
           Report Body
         </button> */}
+        {/* https://api.whatsapp.com/send?phone=41788822785&text=report%20body */}
         <a href="https://wa.link/mpv2sy" target="_blank" className={styles.button}
           style={{ width: '30%' }}>
           Report Body
