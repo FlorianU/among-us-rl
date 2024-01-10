@@ -18,7 +18,6 @@ function Scan() {
       const strings = data.split(':');
       if (strings[0] === 'player') {
         setCurrentUser(players[strings[1]]);
-        console.warn(currentUser);
         router.push({pathname: '/player', query: {id: strings[1]}});
       }
     }

@@ -9,7 +9,12 @@ export default function Player() {
   const [killTimer, setKillTimer] = useState(0);
   const [currentAssignment, setCurrentAssignment] = useState(0);
   const [isKilling, setIsKilling] = useState(false);
-  const { assignmentCounter, setAssignmentCounter, currentUser, setCurrentUser } = useAmongUsContext();
+  const {
+    assignmentCounter,
+    setAssignmentCounter,
+    currentUser,
+    setCurrentUser,
+  } = useAmongUsContext();
 
   useEffect(() => {
     console.warn(currentUser?.assignmentOrder.length);
@@ -42,39 +47,75 @@ export default function Player() {
   };
 
   const onResetButton = () => {
-    router.push({ pathname: '/' });
+    router.push({ pathname: "/" });
+  };
+
+  const onSendRoleButton = () => {
+    window.open(
+      `https://api.whatsapp.com/send?phone=41788822785&text=${
+        (currentUser?.isImpostor ? "impostor" : "innocent")
+      }`, "_blank"
+    );
   };
 
   const onScanAssignmentButton = () => {
-    router.push({ pathname: 'scan-assignment' });
+    router.push({ pathname: "scan-assignment" });
   };
 
   return (
     <div className={styles.container}>
-      <div
-          className={styles.button} style={{padding: 5, marginBottom: 20}} onClick={() => { if (window.confirm('Bist du sicher, dass du alles zurück setzen willst?')) onResetButton() } }>App zurücksetzen</div>
-
-      <p>erledigte Aufgaben: {assignmentCounter}</p>
-      {currentUser?.assignmentOrder?.length === assignmentCounter ? 
-      <div>
-        <h2>Alle Aufgaben abgeschlossen</h2>
-        <p>lasse dich jetzt nicht umbringen!</p>
+      <div className={styles.controlbar}>
+        <button
+          className={styles.button}
+          onClick={() => {
+            if (
+              window.confirm(
+                "Bist du sicher, dass du alles zurück setzen willst?"
+              )
+            )
+              onResetButton();
+          }}
+        >
+          <p>App zurücksetzen</p>
+        </button>
+        <button
+          onClick={onSendRoleButton}
+          className={styles.button}
+        >
+          <p>send role</p>
+        </button>
       </div>
-      :
-      <>
-      <h2>nächste Aufgabe</h2>
-      <p>
-        Ort:       <br />
-        {assignments[currentUser?.assignmentOrder[assignmentCounter]]?.location}
-      </p>
-      <p>
-        Beschreibung:       <br />
-        {assignments[currentUser?.assignmentOrder[assignmentCounter]]?.description}
-      </p>
-      </>
-      }
+      <p>erledigte Aufgaben: {assignmentCounter}</p>
+      {currentUser?.assignmentOrder?.length === assignmentCounter ? (
+        <div>
+          <h2>Alle Aufgaben abgeschlossen</h2>
+          <p>lasse dich jetzt nicht umbringen!</p>
+        </div>
+      ) : (
+        <>
+          <h2>nächste Aufgabe</h2>
+          <p>
+            Ort: <br />
+            {
+              assignments[currentUser?.assignmentOrder[assignmentCounter]]
+                ?.location
+            }
+          </p>
+          <p>
+            Beschreibung: <br />
+            {
+              assignments[currentUser?.assignmentOrder[assignmentCounter]]
+                ?.description
+            }
+          </p>
+        </>
+      )}
       <br />
-      <button onClick={onScanAssignmentButton} disabled={currentUser?.assignmentOrder?.length === assignmentCounter} className={styles.button}>
+      <button
+        onClick={onScanAssignmentButton}
+        disabled={currentUser?.assignmentOrder?.length === assignmentCounter}
+        className={styles.button}
+      >
         <h3>Scanne nächste Aufgabe</h3>
         <p>Jede Aufgabe hat einen QR-Code</p>
       </button>
@@ -83,7 +124,7 @@ export default function Player() {
           onClick={onKillButton}
           className={styles.button}
           disabled={killTimer > 0}
-          style={{ width: '30%' }}
+          style={{ width: "30%" }}
         >
           Kill {killTimer}
         </button>
@@ -92,8 +133,12 @@ export default function Player() {
           Report Body
         </button> */}
         {/* https://api.whatsapp.com/send?phone=41788822785&text=report%20body */}
-        <a href="https://wa.link/mpv2sy" target="_blank" className={styles.button}
-          style={{ width: '30%' }}>
+        <a
+          href="https://wa.link/mpv2sy"
+          target="_blank"
+          className={styles.button}
+          style={{ width: "30%" }}
+        >
           Report Body
         </a>
       </div>

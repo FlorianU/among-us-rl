@@ -3,14 +3,16 @@ import styles from '../styles/Home.module.css'
 import { useRouter } from 'next/router'
 import players from "./players.json"
 import { useState, useEffect } from 'react'
+import { useAmongUsContext } from "../context/main-data";
 
 
-export default function Player(props) {
+export default function Player() {
   const router = useRouter()
   const [timer, setTimer] = useState(10);
-
+  const { assignmentCounter, setAssignmentCounter, currentUser, setCurrentUser } = useAmongUsContext();
 
   useEffect(() => {
+    setCurrentUser(players[router.query.id]);
     var updateTime = setInterval(() => {
       setTimer(timer -1);
     }, 1000);
