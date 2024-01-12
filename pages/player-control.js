@@ -35,8 +35,6 @@ export default function Player() {
   }
 
   useEffect(() => {
-    console.warn(currentUser?.assignmentOrder.length);
-    console.warn(assignmentCounter);
     if (currentUser?.isImpostor && killTimer > 0) {
       var updateTime = setInterval(() => {
         setKillTimer(killTimer - 1);
