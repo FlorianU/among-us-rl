@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useAmongUsContext } from "../context/main-data";
-import addData from "../firebase/addData";
 import styles from "../styles/Home.module.css";
 import assignments from "./assignments.json";
 
@@ -16,23 +15,6 @@ export default function Player() {
     currentUser,
     setCurrentUser,
   } = useAmongUsContext();
-
-  useEffect(() => {
-    sendDummy();
-  });
-
-  const sendDummy = async () => {
-    const data = {
-      name: "Hallo",
-      isImpostor: true,
-      assignmentCounter: 2,
-    }
-    const { result, error } = await addData('users', 'udsfd', data)
-
-    if (error) {
-      return console.log(error)
-    }
-  }
 
   useEffect(() => {
     if (currentUser?.isImpostor && killTimer > 0) {
@@ -59,7 +41,18 @@ export default function Player() {
   };
 
   const onReportBodyButton = () => {
-    // report body
+    window.open(
+      `https://api.whatsapp.com/send?phone=41788822785&text=REPORTBODY`,
+      "_blank"
+    );
+  };
+
+  const onSendAssignmentCounterButton = () => {
+    if (assignmentCounter > 0)
+      window.open(
+        `https://api.whatsapp.com/send?phone=41788822785&text=4325${assignmentCounter}`,
+        "_blank"
+      );
   };
 
   const onResetButton = () => {
@@ -96,6 +89,9 @@ export default function Player() {
         </button>
         <button onClick={onSendRoleButton} className={styles.button}>
           <p>send role</p>
+        </button>
+        <button onClick={onSendAssignmentCounterButton} className={styles.button}>
+          <p>finish assignments</p>
         </button>
       </div>
       <p>erledigte Aufgaben: {assignmentCounter}</p>
@@ -141,19 +137,10 @@ export default function Player() {
         >
           Kill {killTimer}
         </button>
-        {/* <button onClick={onReportBodyButton} className={styles.button}
+        <button onClick={onReportBodyButton} className={styles.button}
           style={{ width: '30%' }}>
           Report Body
-        </button> */}
-        {/* https://api.whatsapp.com/send?phone=41788822785&text=report%20body */}
-        <a
-          href="https://wa.link/mpv2sy"
-          target="_blank"
-          className={styles.button}
-          style={{ width: "30%" }}
-        >
-          Report Body
-        </a>
+        </button>
       </div>
       {isKilling ? <div className={styles.killingOverlay}></div> : null}
     </div>
