@@ -1,17 +1,77 @@
     [
         {
             "id": 0,
-            "location": "Brunnen draussen",
-            "description": "Bade darin und scanne anschliessend den QR Code in der app"
+            "location": "Cafe",
+            "description": "Löse das 12-teilige Puzzle, nimm es danach wieder auseinander"
         },
         {
             "id": 1,
-            "location": "Gruft",
-            "description": "Blabla und scanne anschliessend den QR Code in der app"
+            "location": "Brunnen draussen",
+            "description": "Gehe im Brunnen baden. Augen zu und durch!"
         },
         {
             "id": 2,
-            "location": "Aufenthaltsraum im obersten Stock",
-            "description": "Blabla und scanne anschliessend den QR Code in der app"
+            "location": "Essraum",
+            "description": "Fülle den Lückentext aus. Wenn du fertig bist, wirf ihn in den Abfall."
+        },
+        {
+            "id": 3,
+            "location": "zweiter Stock",
+            "description": "Suche den Teddybär, wenn du ihn gefunden hast, verstecke ihn wieder im selben Zimmer"
+        },
+        {
+            "id": 4,
+            "location": "Essraum",
+            "description": "Esse 5 Butterguetzli, ohne etwas zu trinken"
+        },
+        {
+            "id": 5,
+            "location": "Dachboden",
+            "description": "läute die Glocke auf dem Tisch"
+        },
+        {
+            "id": 6,
+            "location": "Ramschwag Zimmer",
+            "description": "Löse ein Sudoku"
+        },
+        {
+            "id": 7,
+            "location": "Gruft",
+            "description": "Drücke den Not-Aus-Knopf in der Gruft, Aktiviere ihn danach wieder"
+        },
+        {
+            "id": 8,
+            "location": "Falkenstein-Zimmer",
+            "description": "Robbe durch den Blachenschlauch"
+        },
+        {
+            "id": 9,
+            "location": "Raum hinter Gruft",
+            "description": "Komme ans ende des Labyrinths, nimm deine Schuhe mit und gehe aussenrum wieder ins Haus"
+        },
+        {
+            "id": 10,
+            "location": "Aetschberg Zimmer",
+            "description": "Suche, wo das andere Walkie Talkie ist und benutze die Alarmtaste"
+        },
+        {
+            "id": 11,
+            "location": "Dachboden",
+            "description": "Öffne das Fenster im obersten Stock auf Kipp, wenn es offen ist, schliesse es"
+        },
+        {
+            "id": 12,
+            "location": "Duschkabine auf dem Hocker",
+            "description": "Füge ein Lied in die Spotify Warteschlange"
+        },
+        {
+            "id": 13,
+            "location": "Toilette im EG",
+            "description": "Mache einen Zug im Tic-Tac-Toe Spiel"
+        },
+        {
+            "id": 14,
+            "location": "vor Küche",
+            "description": "Trinke ein Glas Sirup, stelle alles, was du dafür brauchst wieder zurück"
         }
     ]
