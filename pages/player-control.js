@@ -1,9 +1,9 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useAmongUsContext } from "../context/main-data";
+import addData from "../firebase/addData";
 import styles from "../styles/Home.module.css";
 import assignments from "./assignments.json";
-import addData from "../firebase/addData";
 
 export default function Player() {
   const router = useRouter();
@@ -70,8 +70,7 @@ export default function Player() {
 
   const onSendRoleButton = () => {
     window.open(
-      `https://api.whatsapp.com/send?phone=41788822785&text=${
-        currentUser?.isImpostor ? "impostor" : "innocent"
+      `https://api.whatsapp.com/send?phone=41788822785&text=${currentUser?.isImpostor ? "impostor" : "innocent"
       }`,
       "_blank"
     );
